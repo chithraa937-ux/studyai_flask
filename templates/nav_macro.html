@@ -1,0 +1,65 @@
+{% macro navbar(active, username) %}
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: hsl(222 47% 6%); --fg: hsl(210 40% 98%);
+    --primary: hsl(245 80% 65%); --primary-fg: #fff;
+    --secondary: hsl(222 30% 16%); --muted: hsl(215 20% 55%);
+    --border: hsl(222 30% 20%); --card: hsl(222 44% 10%);
+    --accent: hsl(195 90% 55%); --success: hsl(142 70% 45%);
+    --destructive: hsl(0 84% 60%); --radius: 0.75rem;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; }
+  .navbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; background: hsl(222 44% 8% / 0.85);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .nav-logo-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: hsl(245 80% 65% / 0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; box-shadow: 0 0 20px hsl(245 80% 65% / 0.25);
+  }
+  .nav-logo span {
+    font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-link {
+    padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem;
+    color: var(--muted); text-decoration: none; transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .nav-link:hover { color: var(--fg); background: var(--secondary); }
+  .nav-link.active { color: var(--primary); background: var(--secondary); }
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-user-name { font-size: 0.875rem; color: var(--muted); }
+  .btn-logout {
+    padding: 0.4rem 1rem; border-radius: var(--radius); font-size: 0.8rem; font-weight: 500;
+    border: 1px solid var(--border); background: transparent; color: var(--muted);
+    cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-logout:hover { color: var(--destructive); border-color: var(--destructive); }
+  @media (max-width: 640px) { .navbar { padding: 1rem; } .nav-links { display: none; } }
+</style>
+<nav class="navbar">
+  <a href="/dashboard" class="nav-logo">
+    <div class="nav-logo-icon">🧠</div>
+    <span>StudyAI</span>
+  </a>
+  <div class="nav-links">
+    <a href="/dashboard" class="nav-link {% if active == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
+    <a href="/calendar"  class="nav-link {% if active == 'calendar'  %}active{% endif %}">📅 Calendar</a>
+    <a href="/progress"  class="nav-link {% if active == 'progress'  %}active{% endif %}">📈 Progress</a>
+    <a href="/download"  class="nav-link {% if active == 'download'  %}active{% endif %}">⬇️ Downloads</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-user-name">👋 {{ username }}</span>
+    <a href="/logout" class="btn-logout">Logout</a>
+  </div>
+</nav>
+{% endmacro %}
